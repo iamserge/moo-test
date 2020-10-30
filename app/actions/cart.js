@@ -14,8 +14,26 @@ export function loadCart() {
             type: CART_LOADED,
             ...cart,
         })
+        return cart.cartId;
     };
 }
+
+export function getCart(cartId) {
+    return async (dispatch, _, config) => {
+        const { url, method } = config.getCart;
+        const { API_LOADING, CART_LOADED } = ACTION_CREATORS;
+
+        dispatch({ type: API_LOADING });
+
+        const cart = await fetchApi(url, method, { cartId });
+        
+        dispatch({
+            type: CART_LOADED,
+            ...cart,
+        })
+    };
+}
+
 
 
 

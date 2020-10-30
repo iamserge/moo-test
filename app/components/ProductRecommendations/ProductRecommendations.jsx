@@ -1,8 +1,8 @@
 import React from 'react';
 import ProductItem from '../ProductItem/ProductItem';
 
-const ProductList = ({ products, addToCart }) => (
-    <div className="list-group">
+const ProductRecommendations = ({ products, addToCart }) => (
+    <div className="product-recommendations">
         {
             products.map(product =>{
                 return (
@@ -13,4 +13,4 @@ const ProductList = ({ products, addToCart }) => (
     </div>
 );
 
-export default ProductList;
+export default ProductRecommendations;
