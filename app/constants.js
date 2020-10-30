@@ -11,13 +11,27 @@ export const ENDPOINTS = {
     addToCart: {
         url: '/cart/<cartId>/item/<itemId>',
         method: 'POST'
+    },
+    incrementQuantity: {
+        url: '/cart/<cartId>/item/<itemId>/increment',
+        method: 'POST'
+    },
+    decrementQuantity: {
+        url: '/cart/<cartId>/item/<itemId>/decrement',
+        method: 'POST'
+    },
+    removeFromCart: {
+        url: '/cart/<cartId>/item/<itemId>',
+        method: 'DELETE'
     }
 };
 
 export const ACTION_CREATORS = {
     API_LOADING: 'API_LOADING',
     CART_LOADED: 'CART_LOADED',
-    ADDED_TO_BASKET: 'ADDED_TO_BASKET'
+    ADDED_TO_BASKET: 'ADDED_TO_BASKET',
+    RECOMMENDATIONS_LOADED: 'RECOMMENDATIONS_LOADED',
+    ITEMS_CHANGED: 'ITEMS_CHANGED'
 }
 
 export const CACHED_KEYS = {
