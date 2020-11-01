@@ -1,4 +1,13 @@
 # MOO Shopping Basket Frontend Coding Test
+
+## Completion notes
+
+* I have utilised localStorage to cache basket id
+* Product recommendations section was added so user can add initial set of products
+* Product recommendations are meant to come from API
+* Webpack config had to be changed to support source maps and SASS
+
+
 ## Contents
 * [Instructions](#instructions)
 * [Requirements](#requirements)
