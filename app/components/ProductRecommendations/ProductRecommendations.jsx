@@ -5,8 +5,9 @@ const ProductRecommendations = ({ products, addToCart, removeFromCart, increment
     <div className="product-recommendations">
         {
             products.map(product =>{
+                const  id = product.itemId ? product.itemId : product.id;
                 return (
-                    <ProductItem key={product.id} product={product} addToCart={addToCart} removeFromCart={removeFromCart} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/>
+                    <ProductItem key={id} product={product} addToCart={addToCart} removeFromCart={removeFromCart} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />
                 )
             }) 
         }

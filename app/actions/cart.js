@@ -12,7 +12,7 @@ export function loadCart() {
         
         dispatch({
             type: CART_LOADED,
-            ...cart,
+            cartId: cart.cartId,
         })
         return cart.cartId;
     };

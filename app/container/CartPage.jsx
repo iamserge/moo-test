@@ -42,7 +42,7 @@ export class CartPage extends Component {
     render() {
         const { loading, products, cart } = this.props;
         if (loading) {
-            return <div> Loading your cart </div>;
+            return <div className="loading">Loading your cart</div>;
         }
         const { recommendations } = this.props;
         return (
@@ -72,7 +72,7 @@ export class CartPage extends Component {
                         <div id="product-recommendations">
                             <h2>
                                 Product recommendations
-                                {recommendations.length > 0 && (
+                                {recommendations && recommendations.length > 0 && (
                                     <span>{recommendations.length}</span>
                                 )}
                             </h2>

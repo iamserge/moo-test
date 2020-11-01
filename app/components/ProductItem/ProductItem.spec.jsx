@@ -1,44 +1,80 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { DEFAULT_ADD_QUANTITY } from '../../constants';
+import ProductItem from './ProductItem';
 
-import ProductList from './ProductList';
+describe('<ProductItem />', () => {
 
-describe('<ProductList />', () => {
-
-    it('should render a list of products', () => {
+    it('should render product title', () => {
         // Given
-        const products = [
-            { id: 1, name: 'A' },
-            { id: 2, name: 'B' }
-        ];
-
-        const addToCart = jest.fn();
+        const product = { id: 1, name: 'A' };
 
         // When
-        const render = shallow(<ProductList products={products} addToCart={addToCart} />);
-        const listItems = render.find('li');
-        
+        const render = shallow(<ProductItem product={product}  />);
+        const title = render.find('h3');
+
         // Then
-        expect(listItems).toHaveLength(2);
-        expect(listItems.first().find('span').text()).toContain('A');
-        expect(listItems.at(1).find('span').text()).toContain('B');
+        expect(title.text()).toContain('Product 1');
     });
 
-    it('should trigger addToCart with the right productId', () => {
+    it('should trigger addToCart with the right productId when product is not in the basket - quantity not defined', () => {
         // Given
-        const products = [
-            { id: 1, name: 'A' },
-            { id: 2, name: 'B' }
-        ];
-
+        const product = { id: 1, name: 'A' };
         const addToCart = jest.fn();
 
         // When
-        const render = shallow(<ProductList products={products} addToCart={addToCart} />);
+        const render = shallow(<ProductItem product={product} addToCart={addToCart} />);
         render.find('button').first().simulate('click');
 
         // Then
-        expect(addToCart).toHaveBeenCalledWith(products[0].id);
+        expect(addToCart).toHaveBeenCalledWith(product.id, DEFAULT_ADD_QUANTITY);
+    });
+    it('should render quantity when product is in the basket', () => {
+        // Given
+        const product = { id: 1, name: 'A', quantity: 4 };
+
+        // When
+        const render = shallow(<ProductItem product={product}  />);
+        const title = render.find('span');
+
+        // Then
+        expect(title.text()).toContain('4');
+    });
+    it('should trigger decrement with the right productId when product is in the basket', () => {
+        // Given
+        const product = { id: 1, quantity: 2, name: 'A' };
+        const decrementQuantity = jest.fn();
+
+        // When
+        const render = shallow(<ProductItem product={product} decrementQuantity={decrementQuantity} />);
+        render.find('button').first().simulate('click');
+
+        // Then
+        expect(decrementQuantity).toHaveBeenCalledWith(product.id);
+    });
+    it('should trigger increment with the right productId when product is in the basket', () => {
+        // Given
+        const product = { id: 1, quantity: 2, name: 'A' };
+        const incrementQuantity = jest.fn();
+
+        // When
+        const render = shallow(<ProductItem product={product} incrementQuantity={incrementQuantity} />);
+        render.find('button').at(1).simulate('click');
+
+        // Then
+        expect(incrementQuantity).toHaveBeenCalledWith(product.id);
+    });
+    it('should trigger remove with the right productId when product is in the basket', () => {
+        // Given
+        const product = { id: 1, quantity: 2, name: 'A' };
+        const removeFromCart = jest.fn();
+
+        // When
+        const render = shallow(<ProductItem product={product} removeFromCart={removeFromCart} />);
+        render.find('button').at(2).simulate('click');
+
+        // Then
+        expect(removeFromCart).toHaveBeenCalledWith(product.id);
     });
 
 });

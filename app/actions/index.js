@@ -1,5 +1,5 @@
 import { API_ROOT } from '../constants';
-export  async function fetchApi(url, method, urlParams = {}, params = {}) {
+export function fetchApi(url, method, urlParams = {}, params = {}) {
     const processedUrl = processUrl(url, urlParams);
     const fetchParams = {
         method,
@@ -10,7 +10,7 @@ export  async function fetchApi(url, method, urlParams = {}, params = {}) {
     if (method !== 'GET') {
         fetchParams.body = JSON.stringify(params);
     }
-    return await fetch(`${API_ROOT}${processedUrl}`, fetchParams).then(async (res) => {
+    return fetch(`${API_ROOT}${processedUrl}`, fetchParams).then(async (res) => {
         const json = await res.json();
         return json
     }).catch((error) => {

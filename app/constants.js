@@ -42,3 +42,4 @@ export const ACTION_CREATORS = {
 export const CACHED_KEYS = {
     BASKET_ID: 'BASKET_ID'
 }
+export const DEFAULT_ADD_QUANTITY = 1;

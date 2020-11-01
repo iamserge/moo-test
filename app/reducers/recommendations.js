@@ -1,6 +1,6 @@
 
 import { ACTION_CREATORS } from '../constants';
-export function processRecommendations(products, cartItems) {
+function processRecommendations(products, cartItems) {
     return products.map((product)=>{
         const newProduct = product;
         const productId = product.id;
@@ -20,11 +20,12 @@ function recommendations(state = [], action) {
 
     switch(action.type) {
         case RECOMMENDATIONS_LOADED:
-            return action.recommendations;
+            return action.recommendations.map((recommendation) => {
+                return { ...recommendation, itemId: recommendation.id }
+            });
         case CART_LOADED:
         case ITEMS_CHANGED:
             return  processRecommendations(state, cartItems);
-            break;
         default:
             return state;
     }
