@@ -8,6 +8,10 @@ export const ENDPOINTS = {
         url: '/cart/<cartId>',
         method: 'GET'
     },
+    clearCart: {
+        url: '/cart/<cartId>/clear',
+        method: 'POST'
+    },
     addToCart: {
         url: '/cart/<cartId>/item/<itemId>',
         method: 'POST'
@@ -31,7 +35,8 @@ export const ACTION_CREATORS = {
     CART_LOADED: 'CART_LOADED',
     ADDED_TO_BASKET: 'ADDED_TO_BASKET',
     RECOMMENDATIONS_LOADED: 'RECOMMENDATIONS_LOADED',
-    ITEMS_CHANGED: 'ITEMS_CHANGED'
+    ITEMS_CHANGED: 'ITEMS_CHANGED',
+    CART_CLEARED: 'CART_CLEARED'
 }
 
 export const CACHED_KEYS = {

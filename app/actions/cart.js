@@ -34,6 +34,21 @@ export function getCart(cartId) {
     };
 }
 
+export function clearCart(cartId) {
+    return async (dispatch, _, config) => {
+        const { url, method } = config.clearCart;
+        const { API_LOADING, CART_CLEARED } = ACTION_CREATORS;
+
+        dispatch({ type: API_LOADING });
+
+        await fetchApi(url, method, { cartId });
+        
+        dispatch({
+            type: CART_CLEARED
+        })
+    };
+}
+
 
 
 

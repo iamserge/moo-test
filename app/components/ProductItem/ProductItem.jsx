@@ -5,7 +5,7 @@ const ProductItem = ({ product, addToCart, removeFromCart, decrementQuantity, in
     const productId = product.itemId ? product.itemId : product.id;
     return (
         <div className="list-group-item d-flex justify-content-between" key={product.name}>
-            <span>{product.name}</span>
+            <h3 className="product-name">Product {productId}</h3>
             { inBasket ? (
                 <div>
                     <button className="btn btn-outline-primary btn-sm" type="button" onClick={() => decrementQuantity(productId)}>-</button>

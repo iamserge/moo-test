@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 
 import { ProductList } from '../components';
 import { ProductRecommendations } from '../components';
-import { addToCart, getRecommendations, removeFromCart, incrementQuantity, decrementQuantity} from '../actions/products';
-import { loadCart, getCart } from '../actions/cart';
+import { addToCart, getRecommendations, removeFromCart, incrementQuantity, decrementQuantity } from '../actions/products';
+import { loadCart, getCart, clearCart } from '../actions/cart';
 
 export class CartPage extends Component {
 
     constructor(props) {
         super(props);
         const { cart } = this.props;
-
         props.getRecommendations();
         if (cart.cartId) {
             props.getCart(cart.cartId);
@@ -45,25 +44,40 @@ export class CartPage extends Component {
         if (loading) {
             return <div> Loading your cart </div>;
         }
-
+        const { recommendations } = this.props;
         return (
             <div className="container">
                 <header className="mt-5 mb-5">
-                    <h1>Shopping Cart</h1>
+                    <h1>
+                        Shopping Cart
+                        <button className="btn btn-outline-primary btn-sm clear-button" type="button" onClick={()=>{this.props.clearCart(cart.cartId)}}>Clear cart</button>
+                    </h1>
                 </header>
-                <main className="row">
-                    <section className="col">
-                        <div className="mr-4">
-                            <h2>Products</h2>
-                            <ProductList products={products} addToCart={this.addToCart} removeFromCart={this.removeFromCart} incrementQuantity={this.incrementQuantity} decrementQuantity={this.decrementQuantity} />
+                <main>
+                    <section>
+                        <div>
+                            <h2>
+                                Products
+                                {products.length > 0 && (
+                                    <span>{products.length}</span>
+                                )}
+                            </h2>
+                            {products.length > 0 ? (
+                                <ProductList products={products} addToCart={this.addToCart} removeFromCart={this.removeFromCart} incrementQuantity={this.incrementQuantity} decrementQuantity={this.decrementQuantity} />
+                            ) : (
+                                <div className="empty">Your shopping bag is empty. You can add from the products recommendations section.</div>
+                            )}
+                            
                         </div>
-                        <div className="mr-4">
-                            <h2>Product recommendations</h2>
-                            <ProductRecommendations products={this.props.recommendations} addToCart={this.addToCart}  removeFromCart={this.removeFromCart} incrementQuantity={this.incrementQuantity} decrementQuantity={this.decrementQuantity}/>
+                        <div id="product-recommendations">
+                            <h2>
+                                Product recommendations
+                                {recommendations.length > 0 && (
+                                    <span>{recommendations.length}</span>
+                                )}
+                            </h2>
+                            <ProductRecommendations products={recommendations} addToCart={this.addToCart}  removeFromCart={this.removeFromCart} incrementQuantity={this.incrementQuantity} decrementQuantity={this.decrementQuantity}/>
                         </div>
-                    </section>
-                    <section className="col">
-                        {/* Cart */}
                     </section>
                 </main>
             </div>
@@ -88,5 +102,6 @@ export default connect(mapStateToProps, {
     getRecommendations,
     removeFromCart,
     incrementQuantity,
-    decrementQuantity
+    decrementQuantity,
+    clearCart
 })(CartPage);
